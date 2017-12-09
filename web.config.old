@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <httpErrors>
+            <remove statusCode="500" subStatusCode="-1" />
+            <remove statusCode="404" subStatusCode="-1" />
+            <error statusCode="404" prefixLanguageFilePath="" path="http://cined.cloudapp.net/navegacion/404.php" responseMode="Redirect" />
+            <error statusCode="500" prefixLanguageFilePath="" path="http://cined.cloudapp.net/navegacion/500.php" responseMode="Redirect" />
+        </httpErrors>
+        <defaultDocument>
+            <files>
+                <clear />
+                <add value="login.php" />
+                <add value="index.php" />
+                <add value="Default.htm" />
+                <add value="Default.asp" />
+                <add value="index.htm" />
+                <add value="index.html" />
+                <add value="iisstart.htm" />
+            </files>
+        </defaultDocument>
+        <caching>
+            <profiles>
+                <remove extension=".css" />
+                <add extension=".js" policy="CacheUntilChange" kernelCachePolicy="CacheUntilChange" />
+                <add extension=".css" policy="CacheUntilChange" kernelCachePolicy="CacheUntilChange" />
+            </profiles>
+        </caching>
+    </system.webServer>
+</configuration>

@@ -1,0 +1,7 @@
+*.png
+pyrus.phar.txt
+/nbproject/private/
+nbproject/private/private.xml
+nbproject/private/private.properties
+*.config
+nbproject/private/private.properties
