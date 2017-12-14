@@ -22,8 +22,8 @@ function sendMail($email, $subject, $body, $wordWrap) {
     $mail->IsHTML(true);
     $mail->Body = $body;
     $mail->WordWrap = $wordWrap;
-    RETURN TRUE; //Esta linea es de prueba.
-    ////return $mail->send();
+    //RETURN TRUE; //Esta linea es de prueba.
+    return $mail->send();
 
 
 }
