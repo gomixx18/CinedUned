@@ -24,63 +24,8 @@ and open the template in the editor.
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>-->
         <script type="text/javascript" src="js/jquery-comments.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
-        <script>
-				
-                                var saveComment = function(data) {
-
-                                        return data;
-				}
-				$('#comments-container').comments({
-					profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/user_profiles/user-icon.png',
-					currentUserId: 1,
-					roundProfilePictures: true,
-					textareaRows: 1,
-					enableAttachments: false,
-					enableHashtags: false,
-					enablePinging: false,
-                                        enableEditing: false,
-                                        enableUpvoting: false,
-                                        enableDeleting: false,
-                                        enableDeletingCommentWithReplies: false,
-                                        highlightColor: '#AAAAAA',
-                                        newestText: 'Recientes',
-                                        oldestText: 'Antiguos',
-                                        popularText: "",
-                                        replyText: "Responder",
-                                        youText: "Tú",
-					getComments: function(success, error) {
-                                           // var tfg = " echo $codigo ?>";
-                                            var commentsArray = 
-                                            $.ajax({
-                                                type: 'get',
-                                                url: 'funcionalidad/ComentarioObtener.php',
-                                                //dataType: 'json',
-                                                data:  {tfg: 'TFG-3-2016-003-1-01'},
-                                                success: function(response) {
-                                                    console.log(JSON.parse(response));
-                                                    success(JSON.parse(response));
-                                                }
-                                            });
-                                        },
-                                        postComment: function(data,success,error) {
-                                           $.ajax({
-                                                type: 'post',
-                                                url: 'funcionalidad/ComentarioGuardar.php',
-                                                
-                                                data:  {json: data},
-                                                success: function(response) {
-                                                  //var content= JSON.parse(response);
-                                                    console.log(response);
-                                                    success(saveComment(data));
-                                                },
-                                                error: error
-                                        });
-                                    }
-                                });
-                                $('#coment').click(function(){
-                                            $('#json').html(comentario);
-                                });
-        </script>
+        <script src="js/comments.js" type="text/javascript"></script>
+			
     </body>
     
 </html>

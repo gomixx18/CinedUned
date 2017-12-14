@@ -89,7 +89,7 @@
                                                         <div class="form-group">
                                                             Busqueda por identificación de estudiante
                                                             <input id="estudiante" style="height: 30px" name="estudiante" type="text" >
-                                                            <input id="btnestudiante" class="btn btn-primary" name="btnestudiante" type="button" value="Buscar" >
+                                                            <input class="btn btn-primary" id="btnestudiante"  name="btnestudiante" type="button" value="Buscar" >
                                                         </div>
                                                     </row>
                                                 <?php } ?>

@@ -23,6 +23,8 @@ and open the template in the editor.
         <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
         <link href="css/jquery-comments.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="css/jquery-comments.css">
+        <link href="css/jquery-comments.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="css/jquery-comments.css">
         <?php
         if (!isset($_POST['codigo'])) {
             header("Location: admin_TFG.php");
@@ -60,8 +62,9 @@ and open the template in the editor.
                                     $arrayEstCorreos = array();
 
 
-                                    $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2)as directortfg,
-                                                tfgdirectores.correo as correodirector,
+
+                                    $consulta = "select tfg.titulo, concat(tfgdirectores.nombre,' ',tfgdirectores.apellido1,' ',tfgdirectores.apellido2) as directortfg,
+                                                tfgdirectores.correo as correodirector, tfgdirectores.id as directorid,
                                                 concat(tfgencargados.nombre,' ',tfgencargados.apellido1,' ',tfgencargados.apellido2) as encargadotfg,
                                                 lineasinvestigacion.nombre as lineainvestigacion, carreras.nombre as carrera, modalidades.nombre as modalidad, tfg.estado, tfg.fechaFinal, tfg.directortfg as directorId
                                                 from tfgdirectores, tfg, tfgencargados,lineasinvestigacion,carreras,modalidades 
@@ -78,7 +81,7 @@ and open the template in the editor.
                                     $data = mysqli_fetch_assoc($query);
                                     etapas($codigo, $connection);
                                     $titulo = $data["titulo"];
-                                    //echo $data["estado"];
+                                    $directorid = $data["directorid"];
                                     ?> 
 
                                     <div class="row">
@@ -131,7 +134,6 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <!--fin primera informacion -->
-
                                     <!-- estudiantes -->
                                     <div class="row">
 
@@ -170,10 +172,8 @@ and open the template in the editor.
                                     <?php
                                     cantidadAsesores($codigo, $connection);
                                     asesores($codigo, $connection);
+
                                     ?>
-
-
-
                                     <!-- etapa 1 -->
                                     <div  class="wrapper wrapper-content animated fadeIn">
                                         <div class="row">
@@ -199,7 +199,6 @@ and open the template in the editor.
                                                                             <i class="fa fa-chevron-up"></i>
                                                                         </div>
                                                                     </a>
-                                                           
                                                                         <div class="ibox-content" style="display: block" >
                                                                             <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                                 <div class="row">
@@ -254,10 +253,9 @@ and open the template in the editor.
                                                                                                     <h3 id="status11"></h3>
                                                                                                     <p id="loaded_n_total11"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
-
-
                                                                                         <div class="col-lg-5 col-lg-offset-1">
                                                                                             <label class="form-label">Director TFG</label><br>
                                                                                             <?php
@@ -301,7 +299,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status11"></h3>
                                                                                                     <p id="loaded_n_total11"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -345,99 +344,15 @@ and open the template in the editor.
                                                                             <div class="row">
 
                                                                                 <div class="col-lg-12 ">
-
                                                                                 </div>
 
                                                                                 <div class="col-lg-12">
                                                                                     <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-                                                                                            <h5>Comisión TFG</h5>
-
-                                                                                            <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                                <button comentario="CM11" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM11',this)" type="button">Editar</button>
-                                                                                                <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary btn-xs permiso" onclick="save1('CM11')" type="button">Guardar</button>
-                                                                                            <?php } ?>
-                                                                                             <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-                                                                                            <div id="CM11" class="click1edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioMiembro($codigo, 1, $connection);
-                                                                                                ?> 
-
-                                                                                            </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')){ ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-                                                                                            <h5>Asesor 1</h5>
-                                                                                            <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                                <button comentario="CA11" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CA11',this)" type="button">Editar</button>
-                                                                                                <button id="BA11" etapa="1" comentario="CA11" class="btn btn-primary  btn-xs permiso" onclick="save2('CA11')" type="button">Guardar</button>
-                                                                                            <?php } ?>
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CA11" class="click2edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioAsesor($codigo, 1, $asesor1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-                                                                                                <?php if (strcmp($fechamodificacion, 'false')){ ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                        <div class="ibox-title panel panel-success">                                        
+                                                                                            <div id="comments-container-etapa1"></div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="ibox float-e-margins">
-                                                                                            <div class="ibox-title panel panel-success">
-                                                                                                <h5>Asesor 2</h5>
-                                                                                                <?php
-                                                                                                if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                                    ?>
-                                                                                                    <button comentario="CA21" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CA21',this)" type="button">Editar</button>
-                                                                                                    <button id="BA21" etapa="1" comentario="CA21" class="btn btn-primary  btn-xs permiso" onclick="save3('CA21')" type="button">Guardar</button>
-                                                                                                    <?php
-                                                                                                }
-                                                                                                ?>
-                                                                                                <div class="ibox-tools">
-                                                                                                    <a class="collapse-link">
-                                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="ibox-content no-padding">
-
-                                                                                                <div id="CA21" class="click3edit wrapper p-md">
-                                                                                                    <?php
-                                                                                                    comentarioAsesor($codigo, 1, $asesor2, $connection);
-                                                                                                    ?>
-                                                                                                </div>
-                                                                                                <?php if (strcmp($fechamodificacion, 'false')){ ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                <?php } ?>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -455,9 +370,10 @@ and open the template in the editor.
                                                                     <div class="col-lg-5">
                                                                         <div class="form-group">
                                                                             <select id="estado1" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                                if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                    echo "disabled"
-                                                                                    ?> <?php } ?>>
+                                                                                                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                        echo "disabled"
+                                                                                                                                                                        ?> <?php 
+                                                                                                                                                                        } ?>>
                                                                                 <option value="Aprobada">Aprobada</option>
                                                                                 <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                                 <option value="No Aprobada">No Aprobada</option>    
@@ -473,7 +389,8 @@ and open the template in the editor.
                                                                         <div class="form-group">
                                                                             <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
                                                                                 <input id="BE1" estado="estado1" etapa="1" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                            <?php } ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -490,9 +407,10 @@ and open the template in the editor.
                                                                         <div class="form-group" id="">
                                                                             <div class="input-group date">
                                                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                echo "disabled"
-                                                                                ?> <?php } ?>
+                                                                                                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                echo "disabled"
+                                                                                                                                                                ?> <?php 
+                                                                                                                                                                } ?>
                                                                                     type="text" id="FTFG1" class="form-control" value="<?php echo substr($fecha1, 0, 11) ?>">
                                                                             </div>
                                                                         </div>
@@ -503,7 +421,8 @@ and open the template in the editor.
                                                                                 <input id="BFTFG1" estado="FTFG1" etapa="1" type="button"  class="btn btn-primary" value="Guardar Fecha">
                                                                             </div>
                                                                         </div>
-                                                                    <?php } ?>
+                                                                    <?php 
+                                                                } ?>
 
                                                                 </div>
                                                             </div>
@@ -595,7 +514,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status21"></h3>
                                                                                                     <p id="loaded_n_total21"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -642,7 +562,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status21"></h3>
                                                                                                     <p id="loaded_n_total21"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -691,7 +612,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status21"></h3>
                                                                                                     <p id="loaded_n_total21"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -740,10 +662,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status21"></h3>
                                                                                                         <p id="loaded_n_total21"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -835,7 +759,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status22"></h3>
                                                                                                     <p id="loaded_n_total22"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -882,7 +807,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status22"></h3>
                                                                                                     <p id="loaded_n_total22"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -931,7 +857,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status22"></h3>
                                                                                                     <p id="loaded_n_total22"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -980,10 +907,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status22"></h3>
                                                                                                         <p id="loaded_n_total22"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -1075,7 +1004,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status23"></h3>
                                                                                                     <p id="loaded_n_total23"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1122,7 +1052,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status23"></h3>
                                                                                                     <p id="loaded_n_total23"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1171,7 +1102,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status21"></h3>
                                                                                                     <p id="loaded_n_total21"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -1220,10 +1152,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status23"></h3>
                                                                                                         <p id="loaded_n_total23"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -1276,7 +1210,8 @@ and open the template in the editor.
                                                                                             <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
                                                                                                 <button comentario="CM12" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM12',this)" type="button">Editar</button>
                                                                                                 <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs permiso" onclick="save1('CM12')" type="button">Guardar</button>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
                                                                                             <div class="ibox-tools">
                                                                                                 <a class="collapse-link">
@@ -1291,9 +1226,10 @@ and open the template in the editor.
                                                                                                 comentarioMiembro($codigo, 2, $connection);
                                                                                                 ?> 
                                                                                             </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
                                                                                         </div>
                                                                                     </div>
@@ -1305,7 +1241,8 @@ and open the template in the editor.
                                                                                             <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
                                                                                                 <button comentario="CA12"  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CA12',this)" type="button">Editar</button>
                                                                                                 <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs permiso" onclick="save2('CA12')" type="button">Guardar</button>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                             <div class="ibox-tools">
                                                                                                 <a class="collapse-link">
                                                                                                     <i class="fa fa-chevron-up"></i>
@@ -1319,9 +1256,10 @@ and open the template in the editor.
                                                                                                 comentarioAsesor($codigo, 2, $asesor1, $connection);
                                                                                                 ?>
                                                                                             </div>
-                                                                                           <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                           <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -1336,6 +1274,7 @@ and open the template in the editor.
                                                                                                     <button comentario="CA22" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CA22',this)" type="button">Editar</button>
                                                                                                     <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs permiso" onclick="save3('CA22')" type="button">Guardar</button>
                                                                                                     <?php
+
                                                                                                 }
                                                                                                 ?>
                                                                                                 <div class="ibox-tools">
@@ -1351,13 +1290,15 @@ and open the template in the editor.
                                                                                                     comentarioAsesor($codigo, 2, $asesor2, $connection);
                                                                                                     ?>
                                                                                                 </div>
-                                                                                               <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                               <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                <?php } ?>
+                                                                                <?php 
+                                                                            } ?>
 
 
 
@@ -1381,9 +1322,10 @@ and open the template in the editor.
 
 
                                                                             <select id="estado2" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                                if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                    echo "disabled"
-                                                                                    ?> <?php } ?>>
+                                                                                                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                        echo "disabled"
+                                                                                                                                                                        ?> <?php 
+                                                                                                                                                                        } ?>>
                                                                                 <option value="Aprobada">Aprobada</option>
                                                                                 <option value="Aprobada con Observaciones">Aprobada con Observaciones</option>
                                                                                 <option value="No Aprobada">No Aprobada</option>    
@@ -1398,7 +1340,8 @@ and open the template in the editor.
                                                                         <div class="form-group">
                                                                             <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
                                                                                 <input id="BE2" estado="estado2" etapa="2" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                            <?php } ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1415,9 +1358,10 @@ and open the template in the editor.
                                                                         <div class="form-group" id="">
                                                                             <div class="input-group date">
                                                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                echo "disabled"
-                                                                                ?> <?php } ?>
+                                                                                                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                echo "disabled"
+                                                                                                                                                                ?> <?php 
+                                                                                                                                                                } ?>
                                                                                     type="text" id="FTFG2" class="form-control" value="<?php echo substr($fecha2, 0, 11) ?>">
                                                                             </div>
                                                                         </div>
@@ -1428,7 +1372,8 @@ and open the template in the editor.
                                                                                 <input id="BFTFG2" estado="FTFG2" type="button" etapa="2" class="btn btn-primary" value="Guardar Fecha">
                                                                             </div>
                                                                         </div>
-                                                                    <?php } ?>
+                                                                    <?php 
+                                                                } ?>
 
                                                                 </div>
                                                             </div>
@@ -1521,7 +1466,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status31"></h3>
                                                                                                     <p id="loaded_n_total31"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1568,7 +1514,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status31"></h3>
                                                                                                     <p id="loaded_n_total31"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1617,7 +1564,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status31"></h3>
                                                                                                     <p id="loaded_n_total31"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -1666,10 +1614,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status31"></h3>
                                                                                                         <p id="loaded_n_total31"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -1762,7 +1712,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status32"></h3>
                                                                                                     <p id="loaded_n_total32"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1809,7 +1760,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status32"></h3>
                                                                                                     <p id="loaded_n_total32"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -1858,7 +1810,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status32"></h3>
                                                                                                     <p id="loaded_n_total32"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -1907,10 +1860,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status32"></h3>
                                                                                                         <p id="loaded_n_total32"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -2003,7 +1958,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status33"></h3>
                                                                                                     <p id="loaded_n_total33"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -2050,7 +2006,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status33"></h3>
                                                                                                     <p id="loaded_n_total33"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
 
 
@@ -2099,7 +2056,8 @@ and open the template in the editor.
                                                                                                     <h3 id="status33"></h3>
                                                                                                     <p id="loaded_n_total33"></p>
                                                                                                 </div>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
 
                                                                                         </div>
@@ -2148,10 +2106,12 @@ and open the template in the editor.
                                                                                                         <h3 id="status33"></h3>
                                                                                                         <p id="loaded_n_total33"></p>
                                                                                                     </div>
-                                                                                                <?php } ?>
+                                                                                                <?php 
+                                                                                            } ?>
 
                                                                                             </div>
-                                                                                        <?php } ?>
+                                                                                        <?php 
+                                                                                    } ?>
 
                                                                                     </div>
                                                                                     <div class="col-lg-offset-10">
@@ -2199,7 +2159,8 @@ and open the template in the editor.
 
                                                                                                 <button comentario="CM13" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM13',this)" type="button">Editar</button>
                                                                                                 <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs permiso" onclick="save1('CM13')" type="button">Guardar</button>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                             <div class="ibox-tools">
                                                                                                 <a class="collapse-link">
                                                                                                     <i class="fa fa-chevron-up"></i>
@@ -2214,9 +2175,10 @@ and open the template in the editor.
                                                                                                 comentarioMiembro($codigo, 3, $connection);
                                                                                                 ?> 
                                                                                             </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
 
                                                                                         </div>
                                                                                     </div>
@@ -2228,7 +2190,8 @@ and open the template in the editor.
                                                                                             <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
                                                                                                 <button comentario="CA13" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CA13',this)" type="button">Editar</button>
                                                                                                 <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs permiso" onclick="save2('CA13')" type="button">Guardar</button>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                             <div class="ibox-tools">
                                                                                                 <a class="collapse-link">
                                                                                                     <i class="fa fa-chevron-up"></i>
@@ -2243,9 +2206,10 @@ and open the template in the editor.
                                                                                                 comentarioAsesor($codigo, 3, $asesor1, $connection);
                                                                                                 ?>
                                                                                             </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -2261,6 +2225,7 @@ and open the template in the editor.
                                                                                                     <button comentario="CA23" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CA23',this)" type="button">Editar</button>
                                                                                                     <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs permiso" onclick="save3('CA23')" type="button">Guardar</button>
                                                                                                     <?php
+
                                                                                                 }
                                                                                                 ?>
                                                                                                 <div class="ibox-tools">
@@ -2277,13 +2242,15 @@ and open the template in the editor.
                                                                                                     comentarioAsesor($codigo, 3, $asesor2, $connection);
                                                                                                     ?>
                                                                                                 </div>
-                                                                                                <?php if (strcmp($fechamodificacion, 'false')){ ?>
+                                                                                                <?php if (strcmp($fechamodificacion, 'false')) { ?>
                                                                                             <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php } ?>
+                                                                                            <?php 
+                                                                                        } ?>
                                                                                             </div>
                                                                                         </div>
 
-                                                                                    <?php } ?>
+                                                                                    <?php 
+                                                                                } ?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -2306,9 +2273,10 @@ and open the template in the editor.
 
 
                                                                             <select id="estado3" class="form-control m-b" name="account" onchange="pintandoPanels()" <?php
-                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                        echo "disabled"
-                                                                                        ?> <?php } ?>>
+                                                                                                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                        echo "disabled"
+                                                                                                                                                                        ?> <?php 
+                                                                                                                                                                        } ?>>
 
                                                                                 <option value="Aprobada">Aprobada</option>
                                                                                 <option value="No Aprobada">No Aprobada</option>    
@@ -2324,7 +2292,8 @@ and open the template in the editor.
 
                                                                             <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
                                                                                 <input id="BE3" estado="estado3" etapa="3" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                            <?php } ?>
+                                                                            <?php 
+                                                                        } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2341,9 +2310,10 @@ and open the template in the editor.
                                                                         <div class="form-group" id="">
                                                                             <div class="input-group date">
                                                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                                echo "disabled"
-                                                                                ?> <?php } ?>
+                                                                                                                                                            if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                                echo "disabled"
+                                                                                                                                                                ?> <?php 
+                                                                                                                                                                } ?>
                                                                                     type="text" id="FTFG3" class="form-control" value="<?php echo substr($fecha3, 0, 11) ?>">
                                                                             </div>
                                                                         </div>
@@ -2354,7 +2324,8 @@ and open the template in the editor.
                                                                                 <input id="BFTFG3" estado="FTFG3" type="button" etapa="3" class="btn btn-primary" value="Guardar Fecha">
                                                                             </div>
                                                                         </div>
-                                                                    <?php } ?>
+                                                                    <?php 
+                                                                } ?>
 
                                                                 </div>
                                                             </div>
@@ -2388,9 +2359,10 @@ and open the template in the editor.
                                                             <div class="col-lg-4">
                                                                 <div class="form-group">
                                                                     <select id="estadotfg" class="form-control m-b" name="estadotfg" <?php
-                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                        echo "disabled"
-                                                                        ?> <?php } ?>>
+                                                                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                        echo "disabled"
+                                                                                                                                        ?> <?php 
+                                                                                                                                        } ?>>
                                                                         <option>Activo</option>
                                                                         <option>Listo para defensa</option>
                                                                         <option>Perdido</option>
@@ -2403,7 +2375,8 @@ and open the template in the editor.
                                                                 <div class="form-group">
                                                                     <?php if ($usuarioPermisos->getEncargadotfg()) { ?> 
                                                                         <input id="BTFG" estado="estadotfg" type="button" class="btn btn-primary" value="Guardar Estado">
-                                                                    <?php } ?>
+                                                                    <?php 
+                                                                } ?>
                                                                 </div>
                                                             </div>
 
@@ -2419,9 +2392,10 @@ and open the template in the editor.
                                                                 <div class="form-group" id="">
                                                                     <div class="input-group date">
                                                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input <?php
-                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
-                                                                        echo "disabled"
-                                                                        ?> <?php } ?>
+                                                                                                                                                    if (!$usuarioPermisos->getEncargadotfg()) {
+                                                                                                                                                        echo "disabled"
+                                                                                                                                                        ?> <?php 
+                                                                                                                                                        } ?>
                                                                             type="text" id="fecha" class="form-control" value="<?php echo substr($data['fechaFinal'], 0, 11) ?>">
                                                                     </div>
                                                                 </div>
@@ -2432,7 +2406,8 @@ and open the template in the editor.
                                                                         <input id="FTFG" estado="fechatfg" type="button" class="btn btn-primary" value="Guardar Fecha">
                                                                     </div>
                                                                 </div>
-                                                            <?php } ?>
+                                                            <?php 
+                                                        } ?>
                                                         </div>
                                                     </div>
 
@@ -2459,6 +2434,7 @@ and open the template in the editor.
                 </div>
             </div>
 
+            
             <script src="js/jquery-2.1.1.js"></script>
             <script src="js/bootstrap.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -2468,6 +2444,9 @@ and open the template in the editor.
             <script src="js/plugins/dataTables/datatables.min.js"></script>
             <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
             <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <script type="text/javascript" src="js/jquery-comments.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
+            <script src="js/comments.js" type="text/javascript"></script>
             <!-- Custom and plugin javascript -->
             <script src="js/inspinia.js"></script>
             <script src="js/plugins/pace/pace.min.js"></script>
@@ -2476,50 +2455,74 @@ and open the template in the editor.
             <script src="js/plugins/summernote/summernote.min.js"></script>
             <script src="js/fileUpload.js" type="text/javascript"></script>
             <!-- Page-Level Scripts -->
+          
             <?php
-
-            function comentarioMiembro($cod, $eta, $conn) {
+            function comentarioMiembro($cod, $eta, $conn)
+            {
                 $consulta = "select comentario, fecha_modificacion from tfgcomentarioscomision where etapa = " . $eta . " and tfg ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 $data = mysqli_fetch_assoc($query);
                 global $fechamodificacion;
-                if(isset($data['fecha_modificacion'])){
-                $fechamodificacion = $data['fecha_modificacion']; 
-                }else{
-                   $fechamodificacion = 'false';
+                if (isset($data['fecha_modificacion'])) {
+                    $fechamodificacion = $data['fecha_modificacion'];
+                } else {
+                    $fechamodificacion = 'false';
                 }
                 echo " " . $data["comentario"] . " ";
             }
 
-            function comentarioAsesor($cod, $eta, $ide, $conn) {
+            function comentarioAsesor($cod, $eta, $ide, $conn)
+            {
                 $consulta = "select comentario, fecha_modificacion from tfgcomentariosasesores where etapa = $eta and tfg ='$cod' and asesor = '$ide'";
                 $query = mysqli_query($conn, $consulta);
                 $data = mysqli_fetch_assoc($query);
                 global $fechamodificacion;
-                
-                if(isset($data['fecha_modificacion'])){
-                $fechamodificacion = $data['fecha_modificacion']; 
-                }else{
-                   $fechamodificacion = 'false';
+
+                if (isset($data['fecha_modificacion'])) {
+                    $fechamodificacion = $data['fecha_modificacion'];
+                } else {
+                    $fechamodificacion = 'false';
                 }
-               
+
                 echo " " . $data["comentario"] . " ";
             }
 
-            function etapas($cod, $conn) {
+            function etapas($cod, $conn)
+            {
                 $consulta = "select numero,estado,fechaEntrega from tfgetapas where tfg ='$cod'";
                 $query = mysqli_query($conn, $consulta);
                 while ($data = mysqli_fetch_assoc($query)) {
                     $etapas = "etapa" . $data["numero"];
                     $fechas = "fecha" . $data["numero"];
-                    global $$etapas;
-                    global $$fechas;
-                    $$etapas = $data['estado'];
-                    $$fechas = $data['fechaEntrega'];
+                    global $ $etapas;
+                    global $ $fechas;
+                    $ $etapas = $data['estado'];
+                    $ $fechas = $data['fechaEntrega'];
                 }
             }
 
-            function cantidadAsesores($cod, $conn) {
+            function verPermisos($usuarioPermisos, $asesor1, $asesor2, $directorid){
+                if($usuarioPermisos->getMiembrocomisiontfg()){
+                    return  true;
+                }else{
+                    if($usuarioPermisos->getId() == $asesor1){
+                        return  true;        
+                    }else{
+                        if($usuarioPermisos->getId() == $asesor2){
+                            return  true;         
+                        }else{
+                            if($usuarioPermisos->getId() == $directorid){
+                                return true;
+                            }else{
+                                return  0;
+                            }
+                        }
+                    }   
+                }
+            }
+
+            function cantidadAsesores($cod, $conn)
+            {
 
                 $cantAsesor = "select count(*) as asesores from tfg,tfgasesores,
                                tfgasesoran where tfg.codigo = tfgasesoran.tfg and 
@@ -2530,26 +2533,28 @@ and open the template in the editor.
                 $cantAsesor = $data['asesores'];
             }
 
-            function asesores($cod, $conn) {
+            function asesores($cod, $conn)
+            {
                 global $asesoresCorreos;
                 $asesoresCorreos = array();
                 $consulta = "select tfgasesores.id, tfgasesores.correo from tfg,tfgasesores,"
-                        . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
-                        . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
+                    . "tfgasesoran where tfg.codigo = tfgasesoran.tfg and "
+                    . "tfgasesoran.asesor =  tfgasesores.id and tfg.codigo ='$cod' and tfgasesoran.estado = 1";
 
                 $query = mysqli_query($conn, $consulta);
                 $cont = 1;
                 while ($data = mysqli_fetch_assoc($query)) {
                     $asesores = "asesor$cont";
-                    global $$asesores;
-                    $$asesores = $data["id"];
+                    global $ $asesores;
+                    $ $asesores = $data["id"];
                     $cont++;
 
                     array_push($asesoresCorreos, $data["correo"]);
                 }
             }
 
-            function verificarAsesor($usuarioId) {//valida si es asesor
+            function verificarAsesor($usuarioId)
+            {//valida si es asesor
                 global $asesor1;
                 global $asesor2;
                 if (isset($asesor1)) {
@@ -2585,315 +2590,386 @@ and open the template in the editor.
                 </div>
             </div>
             <script>
-                                                                                String.prototype.trim = function () {
-                                                                                    return this.replace(/^\s+|\s+$/g, "");
-                                                                                };
-                                                                                $(document).ready(function () {
-                                                                                    $('.summernote').summernote();
-                                                                                });
-                                                                                $('#fecha').datepicker({
-                                                                                    format: 'yyyy-mm-dd',
-                                                                                    todayBtn: "linked",
-                                                                                    keyboardNavigation: false,
-                                                                                    forceParse: false,
-                                                                                    calendarWeeks: true,
-                                                                                    autoclose: true
-                                                                                });
-                                                                                $('#FTFG1').datepicker({
-                                                                                    format: 'yyyy-mm-dd',
-                                                                                    todayBtn: "linked",
-                                                                                    keyboardNavigation: false,
-                                                                                    forceParse: false,
-                                                                                    calendarWeeks: true,
-                                                                                    autoclose: true
-                                                                                });
-                                                                                $('#FTFG2').datepicker({
-                                                                                    format: 'yyyy-mm-dd',
-                                                                                    todayBtn: "linked",
-                                                                                    keyboardNavigation: false,
-                                                                                    forceParse: false,
-                                                                                    calendarWeeks: true,
-                                                                                    autoclose: true
-                                                                                });
-                                                                                $('#FTFG3').datepicker({
-                                                                                    format: 'yyyy-mm-dd',
-                                                                                    todayBtn: "linked",
-                                                                                    keyboardNavigation: false,
-                                                                                    forceParse: false,
-                                                                                    calendarWeeks: true,
-                                                                                    autoclose: true
-                                                                                });
+        String.prototype.trim = function () {
+            return this.replace(/^\s+|\s+$/g, "");
+        };
+        $(document).ready(function () {
+            $('.summernote').summernote();
+        });
+        $('#fecha').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('#FTFG1').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('#FTFG2').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('#FTFG3').datepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
 
-                                                                                var aHTML;
-                                                                                var edit1 = function (comen,ele) {
-                                                                                    
-                                                                                    $elemento = $(ele).parent().nextAll('div');
-                                                                                    $elemento.css('display','block');
-                                                                                    $('#' + comen + '.click1edit').summernote({focus: true});
-                                                                                    
-                                                                                };
-                                                                                var save1 = function (comen) {
-                                                                                    aHTML = $('#' + comen + '.click1edit').code(); //save HTML If you need(aHTML: array).
-                                                                                    $('#' + comen + '.click1edit').destroy();
-                                                                                };
-                                                                                var edit2 = function (comen,ele) {
-                                                                                     $elemento = $(ele).parent().nextAll('div');
-                                                                                    $elemento.css('display','block');
-                                                                                    $('#' + comen + '.click2edit').summernote({focus: true});
-                                                                                };
-                                                                                var save2 = function (comen) {
-                                                                                    aHTML = $('#' + comen + '.click2edit').code(); //save HTML If you need(aHTML: array).
-                                                                                    $('#' + comen + '.click2edit').destroy();
-                                                                                   
-                                                                                };
-                                                                                var edit3 = function (comen,ele) {
-                                                                                    $elemento = $(ele).parent().nextAll('div');
-                                                                                    $elemento.css('display','block');
-                                                                                    $('#' + comen + '.click3edit').summernote({focus: true});
-                                                                                };
-                                                                                var save3 = function (comen) {
-                                                                                    aHTML = $('#' + comen + '.click3edit').code(); //save HTML If you need(aHTML: array).
-                                                                                    $('#' + comen + '.click3edit').destroy();
-                                                                                };
-                                                                                $(document).ready(function () {
-                                                                                    //init de botones
-                                                                                    guardarComentarioMiembro("BM11");
-                                                                                    guardarComentarioAsesor("BA11");
-                                                                                    guardarComentarioAsesor("BA21");
-                                                                                    guardarComentarioAsesor("BA12");
-                                                                                    guardarComentarioAsesor("BA13");
-                                                                                    guardarComentarioAsesor("BA22");
-                                                                                    guardarComentarioAsesor("BA23");
-                                                                                    guardarComentarioMiembro("BM12");
-                                                                                    guardarComentarioMiembro("BM13");
-                                                                                    guardarFechaEstado("BFTFG1");
-                                                                                    guardarFechaEstado("BFTFG2");
-                                                                                    guardarFechaEstado("BFTFG3");
-                                                                                    guardarEstado("BE1");
-                                                                                    guardarEstado("BE2");
-                                                                                    guardarEstado("BE3");
-                                                                                    guardarEstadoFin("BTFG");
-                                                                                    guardarFecha();
-                                                                                    //init de panels y otras cosas 
-                                                                                    initSelects();
-                                                                                    pintandoPanels();
-                                                                                    inac(1);
-                                                                                    inac(2);
-                                                                                    inac(3);
-                                                                                    permiso = "<?php echo $usuarioPermisos->getEncargadotfg() ?>";
-                                                                                    etapa(1);
-                                                                                    etapa(2);
-                                                                                });
-                                                                                //sets de informacion a la base de datos
-                                                                                function guardarComentarioAsesor(btn) { // btn boton del save para asesores
-                                                                                    $("#" + btn).click(function (evento) {
-                                                                                    
-                                                                                        evento.preventDefault();
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var ide = "<?php echo $usuarioSesion->getId() ?>";
-                                                                                        var eta = $("#" + btn).attr("etapa");
-                                                                                        var coment = $("#" + btn).attr("comentario");
-                                                                                        var com = aHTML;
-                                                                                        aHTML = "";
-                                                                                        $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                            modal(" Se guardo el comentario con exito");
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrio algun problema", data);
-                                                                                        });
-                                                                                        
-                                                                                        
-                                                                                    });
-                                                                                }
+        var aHTML;
+        var edit1 = function (comen,ele) {
+            
+            $elemento = $(ele).parent().nextAll('div');
+            $elemento.css('display','block');
+            $('#' + comen + '.click1edit').summernote({focus: true});
+            
+        };
+        var save1 = function (comen) {
+            aHTML = $('#' + comen + '.click1edit').code(); //save HTML If you need(aHTML: array).
+            $('#' + comen + '.click1edit').destroy();
+        };
+        var edit2 = function (comen,ele) {
+                $elemento = $(ele).parent().nextAll('div');
+            $elemento.css('display','block');
+            $('#' + comen + '.click2edit').summernote({focus: true});
+        };
+        var save2 = function (comen) {
+            aHTML = $('#' + comen + '.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('#' + comen + '.click2edit').destroy();
+            
+        };
+        var edit3 = function (comen,ele) {
+            $elemento = $(ele).parent().nextAll('div');
+            $elemento.css('display','block');
+            $('#' + comen + '.click3edit').summernote({focus: true});
+        };
+        var save3 = function (comen) {
+            aHTML = $('#' + comen + '.click3edit').code(); //save HTML If you need(aHTML: array).
+            $('#' + comen + '.click3edit').destroy();
+        };
+        $(document).ready(function () {
+            //init de botones
+            guardarComentarioMiembro("BM11");
+            guardarComentarioAsesor("BA11");
+            guardarComentarioAsesor("BA21");
+            guardarComentarioAsesor("BA12");
+            guardarComentarioAsesor("BA13");
+            guardarComentarioAsesor("BA22");
+            guardarComentarioAsesor("BA23");
+            guardarComentarioMiembro("BM12");
+            guardarComentarioMiembro("BM13");
+            guardarFechaEstado("BFTFG1");
+            guardarFechaEstado("BFTFG2");
+            guardarFechaEstado("BFTFG3");
+            guardarEstado("BE1");
+            guardarEstado("BE2");
+            guardarEstado("BE3");
+            guardarEstadoFin("BTFG");
+            guardarFecha();
+            //init de panels y otras cosas 
+            initSelects();
+            pintandoPanels();
+            inac(1);
+            inac(2);
+            inac(3);
+            permiso = "<?php echo $usuarioPermisos->getEncargadotfg() ?>";
+            etapa(1);
+            etapa(2);
+        });
+        //sets de informacion a la base de datos
+        function guardarComentarioAsesor(btn) { // btn boton del save para asesores
+            $("#" + btn).click(function (evento) {
+            
+                evento.preventDefault();
+                var cod = "<?php echo $codigo ?>";
+                var ide = "<?php echo $usuarioSesion->getId() ?>";
+                var eta = $("#" + btn).attr("etapa");
+                var coment = $("#" + btn).attr("comentario");
+                var com = aHTML;
+                aHTML = "";
+                $.get("funcionalidad/ComentarioAsesor.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                    modal(" Se guardo el comentario con exito");
+                }).fail(function (data) {
+                    modal("Ocurrio algun problema", data);
+                });
+                
+                
+            });
+        }
 
-                                                                                function guardarComentarioMiembro(btn) {
-                                                                                    $("#" + btn).click(function (evento) {
-                                                                                        evento.preventDefault();
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var ide = "<?php echo $usuarioSesion->getId() ?>";
-                                                                                        var eta = $("#" + btn).attr("etapa");
-                                                                                        var coment = $("#" + btn).attr("comentario");
-                                                                                        var com = aHTML;
-                                                                                        aHTML = "";
-                                                                                        $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
-                                                                                            modal(" Se guardo el comentario con exito");
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrio algun problema", data);
-                                                                                        });
-                                                                                    });
-                                                                                }
+        function guardarComentarioMiembro(btn) {
+            $("#" + btn).click(function (evento) {
+                evento.preventDefault();
+                var cod = "<?php echo $codigo ?>";
+                var ide = "<?php echo $usuarioSesion->getId() ?>";
+                var eta = $("#" + btn).attr("etapa");
+                var coment = $("#" + btn).attr("comentario");
+                var com = aHTML;
+                aHTML = "";
+                $.get("funcionalidad/ComentarioMiembro.php", {comentario: com, tfg: cod, etapa: eta, id: ide}, function (data) {
+                    modal(" Se guardo el comentario con exito");
+                }).fail(function (data) {
+                    modal("Ocurrio algun problema", data);
+                });
+            });
+        }
+        
+        function guardarEstado(btn) { // btn boton de guardar la etapa 
+        
+            
+            $("#" + btn).click(function (evento) {
+                var est = $("#" + btn).attr("estado");
+                var estad = $("#" + est).val();
+                if(confirm("¿esta seguro de cambiar el estado de la etapa? a: "+estad)){
+                evento.preventDefault();
+                etapa(1);
+                etapa(2);
+                var cod = "<?php echo $codigo ?>";
+                var titulo = "<?php echo $data['titulo'] ?>";
+                var dir = "<?php echo $data["correodirector"] ?>";
+                var eta = $("#" + btn).attr("etapa");
+                
+                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
 
-                                                                                function guardarEstado(btn) { // btn boton de guardar la etapa 
-                                                                                
-                                                                                    
-                                                                                    $("#" + btn).click(function (evento) {
-                                                                                        var est = $("#" + btn).attr("estado");
-                                                                                        var estad = $("#" + est).val();
-                                                                                        if(confirm("¿esta seguro de cambiar el estado de la etapa? a: "+estad)){
-                                                                                        evento.preventDefault();
-                                                                                        etapa(1);
-                                                                                        etapa(2);
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var titulo = "<?php echo $data['titulo'] ?>";
-                                                                                        var dir = "<?php echo $data["correodirector"] ?>";
-                                                                                        var eta = $("#" + btn).attr("etapa");
-                                                                                       
-                                                                                        var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
-                                                                                        var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+                var asesoresC = {};
+                asesoresC = JSON.stringify(asesores);
 
-                                                                                        var asesoresC = {};
-                                                                                        asesoresC = JSON.stringify(asesores);
+                var estC = {};
+                estC = JSON.stringify(estudiantesC);
 
-                                                                                        var estC = {};
-                                                                                        estC = JSON.stringify(estudiantesC);
+                $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estCorreos: estC, director: dir, asesores: asesoresC}, function (data) {
+                        
+                    $("#"+est).val(data);
+                    
+                    if(estad === data ){
+                        modal(" Se guardó el estado de la etapa con éxito.");
+                        pintandoPanels();
+                        
+                    }else{
+                        modal(" NO se puede cambiar el estado de aprobado a otro estado.");
+                        pintandoPanels();
+                    }
+                    
+                }).fail(function (data) {
+                    modal("Ocurrió algún problema." , data);
+                });
+                }
+            });
+            
+        }
 
-                                                                                        $.get("funcionalidad/TFGestado.php", {estado: estad, tfg: cod, titulo: titulo, etapa: eta, estCorreos: estC, director: dir, asesores: asesoresC}, function (data) {
-                                                                                             
-                                                                                            $("#"+est).val(data);
-                                                                                            
-                                                                                            if(estad === data ){
-                                                                                                modal(" Se guardó el estado de la etapa con éxito.");
-                                                                                                pintandoPanels();
-                                                                                               
-                                                                                            }else{
-                                                                                                modal(" NO se puede cambiar el estado de aprobado a otro estado.");
-                                                                                                pintandoPanels();
-                                                                                            }
-                                                                                            
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrió algún problema." , data);
-                                                                                        });
-                                                                                      }
-                                                                                    });
-                                                                                  
-                                                                                }
+        function guardarEstadoFin(btn) { // btn boton del guardar estado final
+            $("#" + btn).click(function (evento) {
+                evento.preventDefault();
+                var cod = "<?php echo $codigo ?>";
+                var est = $("#" + btn).attr("estado");
+                var estad = $("#" + est).val();
+                var etapa = "Final";
+                var titulo = "<?php echo $data['titulo'] ?>";
+                var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
+                var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
+                var dir = "<?php echo $data["correodirector"] ?>";
 
-                                                                                function guardarEstadoFin(btn) { // btn boton del guardar estado final
-                                                                                    $("#" + btn).click(function (evento) {
-                                                                                        evento.preventDefault();
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var est = $("#" + btn).attr("estado");
-                                                                                        var estad = $("#" + est).val();
-                                                                                        var etapa = "Final";
-                                                                                        var titulo = "<?php echo $data['titulo'] ?>";
-                                                                                        var estudiantesC = <?php echo '["' . implode('", "', $arrayEstCorreos) . '"]' ?>;
-                                                                                        var asesores = <?php echo '["' . implode('", "', $asesoresCorreos) . '"]' ?>;
-                                                                                        var dir = "<?php echo $data["correodirector"] ?>";
+                var estC = {};
+                estC = JSON.stringify(estudiantesC);
 
-                                                                                        var estC = {};
-                                                                                        estC = JSON.stringify(estudiantesC);
+                var asesoresC = {};
+                asesoresC = JSON.stringify(asesores);
 
-                                                                                        var asesoresC = {};
-                                                                                        asesoresC = JSON.stringify(asesores);
+                $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
+                    modal(" Se guardó el estado final con exito");
+                }).fail(function (data) {
+                    modal("Ocurrió algún problema");
+                });
+            });
+        }
+        function guardarFecha() {
+            $("#FTFG").click(function (evento) {
+                evento.preventDefault();
+                var cod = "<?php echo $codigo ?>";
+                var fecha = $("#fecha").val();
+                $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
+                    modal(" Se guardó la fecha con exito");
+                }).fail(function (data) {
+                    modal("Ocurrió algún problema");
+                });
+            });
+        }
+        function guardarFechaEstado(btn) {
+            $("#" + btn).click(function (evento) {
+                evento.preventDefault();
+                var cod = "<?php echo $codigo ?>";
+                var fech = $("#" + btn).attr("estado");
+                var fecha = $("#" + fech).val();
+                var eta = $("#" + btn).attr("etapa");
+                $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod, etapa: eta, fechaetapa: 1}, function (data) {
+                    modal(" Se guardó la fecha con exito", data);
+                    
+                }).fail(function (data) {
+                    modal("Ocurrió algún problema", data);
+                });
+            });
+        }
 
-                                                                                        $.get("funcionalidad/TFGestadoFin.php", {estado: estad, tfg: cod, titulo: titulo, etapa: etapa, director: dir, estCorreos: estC, asesores: asesoresC}, function (data) {
-                                                                                            modal(" Se guardó el estado final con exito");
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrió algún problema");
-                                                                                        });
-                                                                                    });
-                                                                                }
-                                                                                function guardarFecha() {
-                                                                                    $("#FTFG").click(function (evento) {
-                                                                                        evento.preventDefault();
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var fecha = $("#fecha").val();
-                                                                                        $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod}, function (data) {
-                                                                                            modal(" Se guardó la fecha con exito");
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrió algún problema");
-                                                                                        });
-                                                                                    });
-                                                                                }
-                                                                                function guardarFechaEstado(btn) {
-                                                                                    $("#" + btn).click(function (evento) {
-                                                                                        evento.preventDefault();
-                                                                                        var cod = "<?php echo $codigo ?>";
-                                                                                        var fech = $("#" + btn).attr("estado");
-                                                                                        var fecha = $("#" + fech).val();
-                                                                                        var eta = $("#" + btn).attr("etapa");
-                                                                                        $.get("funcionalidad/TFGfecha.php", {fecha: fecha, tfg: cod, etapa: eta, fechaetapa: 1}, function (data) {
-                                                                                            modal(" Se guardó la fecha con exito", data);
-                                                                                            
-                                                                                        }).fail(function (data) {
-                                                                                            modal("Ocurrió algún problema", data);
-                                                                                        });
-                                                                                    });
-                                                                                }
+        function modal(titulo, msj) {
+            $('#mod-info').modal('show');
+            $("#titulo-modal").text(titulo);
+            $("#texto-modal").text(msj);
 
-                                                                                function modal(titulo, msj) {
-                                                                                    $('#mod-info').modal('show');
-                                                                                    $("#titulo-modal").text(titulo);
-                                                                                    $("#texto-modal").text(msj);
-
-                                                                                }
-
-
-                                                                                //pintar panels
-                                                                                var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
-                                                                                    NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
-                                                                                    Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
-                                                                                var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
-                                                                                function pintando(estado, panel, estadoan, n) {
-                                                                                    estado = estado.replace(/\s/g, "");
-                                                                                    estadoan = estado.replace(/\s/g, "");
-                                                                                    $("#" + panel).removeClass(estados[estadosant["ant" + n]] + "").addClass(estados[estado]);
-                                                                                    //elimino el color anterior y inserto la clase del nuevo
-                                                                                    estadosant["ant" + n] = estado;
-                                                                                }
-                                                                                function pintandoPanels() {
-                                                                                    pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
-                                                                                    pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
-                                                                                    pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
-                                                                                    pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
-                                                                                }
-                                                                                function initSelects() {
-                                                                                    // alert("<?php echo $etapa1 ?>");
-                                                                                    $("#estado1").val("<?php echo $etapa1 ?>");
-                                                                                    $("#estado2").val("<?php echo $etapa2 ?>");
-                                                                                    $("#estado3").val("<?php echo $etapa3 ?>");
-                                                                                    $("#estadotfg").val("<?php echo $data["estado"] ?>");
-                                                                                }
+        }
 
 
-                                                                                //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
-                                                                                function inac(etapa) {
-                                                                                    //alert(etapa);
-                                                                                    $("#estado" + etapa).focus(function () {
-                                                                                        $("#estado" + etapa + " option[value='Inactiva']").remove();
-                                                                                    });
-                                                                                    $("#estado" + etapa).focus();
-                                                                                    $("#estado" + etapa).focusout(function () {
-                                                                                        $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
-
-                                                                                    });
-                                                                                }
-                                                                                //metodo para habilitar/deshabilitar la siguiente etapa 
-
-                                                                                var permiso;
-                                                                                function etapa(etapa) {
-
-                                                                                    var estado = $("#estado" + etapa).val();
-                                                                                    var etapasig = etapa + 1;
-
-                                                                                    if (estado === "Aprobada" || estado === "Aprobada con Observaciones") {
-                                                                                        if (permiso === "1") {
-                                                                                            $("#estado" + etapasig).prop('disabled', false);
-                                                                                            $("#BE" + etapasig).prop('disabled', false);
-                                                                                        }
-                                                                                        $("#panelEstado" + etapasig + " .permiso").prop('disabled', false);
-
-                                                                                    } else {
-                                                                                        if (permiso === "1") {
-                                                                                            $("#estado" + etapasig).prop('disabled', true);
-                                                                                            $("#BE" + etapasig).prop('disabled', true);
-                                                                                        }
-                                                                                        $("#panelEstado" + etapasig + " .permiso").prop('disabled', true);
-                                                                                    }
-                                                                                }
+        //pintar panels
+        var estados = {Aprobada: "panel-primary", AprobadaconObservaciones: "panel-warning",
+            NoAprobada: "panel-danger", Enejecución: "panel-success", Inactiva: "panel", Activo: "panel-success",
+            Aprobadaparadefensa: "panel-primary", Inactivo: "panel-danger", Finalizado: "panel-primary"};
+        var estadosant = {ant1: "<?php echo $etapa1 ?>", ant2: "<?php echo $etapa2 ?>", ant3: "<?php echo $etapa3 ?>", ant4: "<?php echo $data["estado"] ?>"};
+        function pintando(estado, panel, estadoan, n) {
+            estado = estado.replace(/\s/g, "");
+            estadoan = estado.replace(/\s/g, "");
+            $("#" + panel).removeClass(estados[estadosant["ant" + n]] + "").addClass(estados[estado]);
+            //elimino el color anterior y inserto la clase del nuevo
+            estadosant["ant" + n] = estado;
+        }
+        function pintandoPanels() {
+            pintando($("#estado1").val(), "panelEstado1", estadosant["ant1"], 1);
+            pintando($("#estado2").val(), "panelEstado2", estadosant["ant2"], 2);
+            pintando($("#estado3").val(), "panelEstado3", estadosant["ant3"], 3);
+            pintando($("#estadotfg").val(), "panelEstadoFinal", estadosant["ant4"], 4);
+        }
+        function initSelects() {
+            // alert("<?php echo $etapa1 ?>");
+            $("#estado1").val("<?php echo $etapa1 ?>");
+            $("#estado2").val("<?php echo $etapa2 ?>");
+            $("#estado3").val("<?php echo $etapa3 ?>");
+            $("#estadotfg").val("<?php echo $data["estado"] ?>");
+        }
 
 
+        //metodo para que el usuario no pueda marcar la opcion de inactivo en una etapa
+        function inac(etapa) {
+            //alert(etapa);
+            $("#estado" + etapa).focus(function () {
+                $("#estado" + etapa + " option[value='Inactiva']").remove();
+            });
+            $("#estado" + etapa).focus();
+            $("#estado" + etapa).focusout(function () {
+                $("#estado" + etapa).append("<option value='Inactiva'>Inactiva</option>");
 
+            });
+        }
+        //metodo para habilitar/deshabilitar la siguiente etapa 
 
-            </script>    
+        var permiso;
+        function etapa(etapa) {
+
+            var estado = $("#estado" + etapa).val();
+            var etapasig = etapa + 1;
+
+            if (estado === "Aprobada" || estado === "Aprobada con Observaciones") {
+                if (permiso === "1") {
+                    $("#estado" + etapasig).prop('disabled', false);
+                    $("#BE" + etapasig).prop('disabled', false);
+                }
+                $("#panelEstado" + etapasig + " .permiso").prop('disabled', false);
+
+            } else {
+                if (permiso === "1") {
+                    $("#estado" + etapasig).prop('disabled', true);
+                    $("#BE" + etapasig).prop('disabled', true);
+                }
+                $("#panelEstado" + etapasig + " .permiso").prop('disabled', true);
+            }
+        }
+        function obtenerPermisos() {
+            var permisos = "<?php echo verPermisos($usuarioPermisos,$asesor1,$asesor2, $directorid); ?>"
+            console.log("esto es un log: " + permisos);
+            if(permisos == 0){
+                console.log("permisos granted")
+                return true;
+            }else{
+                console.log("access denied")
+                return false;
+            }
+        }
+
+        var saveComment = function (data) {
+            return data;
+        }
+        $('#comments-container-etapa1').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 1; 
+                var etapa = 1;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+        </script>    
     </body>
 </html>
