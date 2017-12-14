@@ -342,10 +342,6 @@ and open the template in the editor.
                                                                         </a>
                                                                         <div class="ibox-content" style="display: block;">
                                                                             <div class="row">
-
-                                                                                <div class="col-lg-12 ">
-                                                                                </div>
-
                                                                                 <div class="col-lg-12">
                                                                                     <div class="ibox float-e-margins">
                                                                                         <div class="ibox-title panel panel-success">                                        
@@ -459,17 +455,13 @@ and open the template in the editor.
                                                                             <i class="fa fa-chevron-up"></i>
                                                                         </div>
                                                                         </a>
-                                                           
                                                                         <div class="ibox-content" style="display: block" >
                                                                             <form action="funcionalidad/CargarArchivoBlobTFG.php" method="post" enctype="multipart/form-data" id="directorForm">
                                                                                 <div class="row">
-
                                                                                     <div class="col-lg-12 ">
                                                                                         <label>Archivos</label>
                                                                                         <br/><br/>
-
                                                                                     </div>
-
                                                                                     <div class="col-lg-12 ">
                                                                                         <div class="col-lg-5 col-lg-offset-1">
                                                                                             <label class="form-label">Comisión TFG</label><br>
@@ -614,8 +606,6 @@ and open the template in the editor.
                                                                                                 </div>
                                                                                             <?php 
                                                                                         } ?>
-
-
                                                                                         </div>
                                                                                         <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
                                                                                             <div class="col-lg-5 col-lg-offset-1">
@@ -688,6 +678,15 @@ and open the template in the editor.
                                                                                         <input id="input-1" type="submit"  class="btn btn-primary" value="Registro de Archivos">
                                                                                     </div>
                                                                                 </form>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12 ">
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="comments-container-etapa2-fase1"></div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -934,6 +933,15 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12 ">
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="comments-container-etapa2-fase2"></div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
@@ -1179,135 +1187,20 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <!-- fin archivos -->
-                                                            <!-- comentarios -->
-                                                            <div class="col-lg-12">
-                                                                <div class="ibox collapsed">
-                                                                    <div class="ibox-title panel panel-success">
-                                                                        <h5>Observaciones</h5>
-                                                                        <a id="col1" class="collapse-link">
-                                                                        <div id="collapse1" class="ibox-tools">
-                                                                            <i class="fa fa-chevron-up"></i>
-                                                                        </div>
-                                                                        </a>
-                                                                        <div class="ibox-content" style="display: block;">
                                                                             <div class="row">
-
                                                                                 <div class="col-lg-12 ">
-
-                                                                                </div>
-
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-
-                                                                                            <h5>Comisión TFG</h5>
-                                                                                            <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-                                                                                                <button comentario="CM12" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM12',this)" type="button">Editar</button>
-                                                                                                <button id="BM12" etapa="2" comentario="CM12" class="btn btn-primary  btn-xs permiso" onclick="save1('CM12')" type="button">Guardar</button>
-                                                                                            <?php 
-                                                                                        } ?>
-
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CM12" class="click1edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioMiembro($codigo, 2, $connection);
-                                                                                                ?> 
-                                                                                            </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-
-                                                                                        </div>
-                                                                                    </div>
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
                                                                                 </div>
                                                                                 <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-                                                                                            <h5>Asesor 1</h5>
-                                                                                            <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                                <button comentario="CA12"  class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CA12',this)" type="button">Editar</button>
-                                                                                                <button id="BA12" etapa="2" comentario="CA12" class="btn btn-primary  btn-xs permiso" onclick="save2('CA12')" type="button">Guardar</button>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CA12" class="click2edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioAsesor($codigo, 2, $asesor1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-                                                                                           <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    <div id="comments-container-etapa2-fase3"></div>
                                                                                 </div>
-                                                                                <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="ibox float-e-margins">
-                                                                                            <div class="ibox-title">
-                                                                                                <h5>Asesor 2</h5>
-                                                                                                <?php
-                                                                                                if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                                    ?>
-                                                                                                    <button comentario="CA22" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CA22',this)" type="button">Editar</button>
-                                                                                                    <button id="BA22" etapa="2" comentario="CA22" class="btn btn-primary  btn-xs permiso" onclick="save3('CA22')" type="button">Guardar</button>
-                                                                                                    <?php
-
-                                                                                                }
-                                                                                                ?>
-                                                                                                <div class="ibox-tools">
-                                                                                                    <a class="collapse-link">
-                                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="ibox-content no-padding">
-
-                                                                                                <div id="CA22" class="click3edit wrapper p-md">
-                                                                                                    <?php
-                                                                                                    comentarioAsesor($codigo, 2, $asesor2, $connection);
-                                                                                                    ?>
-                                                                                                </div>
-                                                                                               <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                <?php 
-                                                                            } ?>
-
-
-
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- fin comentarios -->
+                                                            <!-- fin archivos y comentarios -->
                                                             <!-- Estado  -->
                                                             <div class="row">
 
@@ -1386,7 +1279,6 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <!-- fin etapa 2 -->
-
                                     <!-- etapa 3 -->
                                     <div class="wrapper wrapper-content animated fadeIn">
                                         <div class="row">
@@ -1641,6 +1533,15 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12 ">
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="comments-container-etapa3-fase1"></div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
@@ -1887,13 +1788,22 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12 ">
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="comments-container-etapa3-fase2"></div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
                                                                 </div>
                                                             </div>
                                                             
-                                                            <!-- Fin etapa3 subetapa 2  -->
+                                                            <!-- Fin etapa3 subetapa 3  -->
                                                               <div class="col-lg-12">
                                                               <div class="ibox collapsed">
                                                                 <div class="ibox-title panel panel-success">
@@ -2133,132 +2043,21 @@ and open the template in the editor.
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12 ">
+                                                                                        <label>Observaciones</label>
+                                                                                        <br/><br/>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div id="comments-container-etapa3-fase3"></div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
                                                                 </div>
                                                             </div>
                                                             <!-- fin archivos etapa 3 subetapa 3 -->
-                                                            <!-- comentarios -->
-                                                            <div class="col-lg-12">
-                                                                <div class="ibox collapsed">
-                                                                    <div class="ibox-title panel panel-success">
-                                                                        <h5>Observaciones</h5>
-                                                                        <a id="col1" class="collapse-link">
-                                                                        <div id="collapse1" class="ibox-tools">
-                                                                            <i class="fa fa-chevron-up"></i>
-                                                                        </div>
-                                                                        </a>
-                                                                        <div class="ibox-content" style="display: block;">
-                                                                            <div class="row">
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-                                                                                            <h5>Comision TFG</h5>
-                                                                                            <?php if ($usuarioPermisos->getMiembrocomisiontfg()) { ?>
-
-                                                                                                <button comentario="CM13" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CM13',this)" type="button">Editar</button>
-                                                                                                <button id="BM13" etapa="3" comentario="CM13" class="btn btn-primary  btn-xs permiso" onclick="save1('CM13')" type="button">Guardar</button>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CM13" class="click1edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioMiembro($codigo, 3, $connection);
-                                                                                                ?> 
-                                                                                            </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title panel panel-success">
-                                                                                            <h5>Asesor 1</h5>
-                                                                                            <?php if ($usuarioPermisos->getId() == $asesor1) { ?>
-                                                                                                <button comentario="CA13" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CA13',this)" type="button">Editar</button>
-                                                                                                <button id="BA13" etapa="3" comentario="CA13" class="btn btn-primary  btn-xs permiso" onclick="save2('CA13')" type="button">Guardar</button>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                            <div class="ibox-tools">
-                                                                                                <a class="collapse-link">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </a>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CA13" class="click2edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioAsesor($codigo, 3, $asesor1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-                                                                                            <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-lg-12">
-                                                                                    <?php if ($GLOBALS['cantAsesor'] == 2) { ?>
-                                                                                        <div class="ibox float-e-margins">
-                                                                                            <div class="ibox-title">
-                                                                                                <h5>Asesor 2</h5>
-                                                                                                <?php
-                                                                                                if ($usuarioPermisos->getId() == $asesor2) {
-                                                                                                    ?>
-                                                                                                    <button comentario="CA23" class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CA23',this)" type="button">Editar</button>
-                                                                                                    <button id="BA23" etapa="3" comentario="CA23" class="btn btn-primary  btn-xs permiso" onclick="save3('CA23')" type="button">Guardar</button>
-                                                                                                    <?php
-
-                                                                                                }
-                                                                                                ?>
-                                                                                                <div class="ibox-tools">
-                                                                                                    <a class="collapse-link">
-                                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                                    </a>
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="ibox-content no-padding">
-
-                                                                                                <div id="CA23" class="click3edit wrapper p-md">
-                                                                                                    <?php
-                                                                                                    comentarioAsesor($codigo, 3, $asesor2, $connection);
-                                                                                                    ?>
-                                                                                                </div>
-                                                                                                <?php if (strcmp($fechamodificacion, 'false')) { ?>
-                                                                                            <label>Última Modificación: <?php echo $fechamodificacion ?></label>
-                                                                                            <?php 
-                                                                                        } ?>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    <?php 
-                                                                                } ?>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>    
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- fin comentarios -->
                                                             <!-- Estado  -->
                                                             <div class="row">
                                                                 <div class="col-lg-5 col-lg-offset-1">  
@@ -2955,11 +2754,385 @@ and open the template in the editor.
             postComment: function (data, success, error) {
                     var tfg = "<?php echo $codigo ?>";
                     var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 1; 
+                    var etapa = 1;
                     $.ajax({
                         type: 'post',
                         url: 'funcionalidad/ComentarioGuardar.php',
 
-                        data: { usuario: id, tfg: tfg, json: data },
+                        data: { usuario: id, tfg: tfg, json: data, fase:fase, etapa:etapa },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa2-fase1').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 1; 
+                var etapa = 2;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario+ etapa + " " + fase);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 1; 
+                    var etapa = 2;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data,  fase: fase, etapa: etapa },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa2-fase2').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 2; 
+                var etapa = 2;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 2; 
+                    var etapa = 2;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa2-fase3').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 3; 
+                var etapa = 2;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 3; 
+                    var etapa = 2;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa3-fase1').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 1; 
+                var etapa = 3;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 1; 
+                    var etapa = 3;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data, fase: fase, etapa: etapa},
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa3-fase2').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 2; 
+                var etapa = 3;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>";
+                    var fase = 2; 
+                    var etapa = 3;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            //var content= JSON.parse(response);
+                            console.log(response);
+                            success(saveComment(data));
+                        },
+                        error: error
+                    });
+                }
+            });
+
+            $('#comments-container-etapa3-fase3').comments({
+            profilePictureURL: 'img/user-icon.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: false,
+            enableHashtags: false,
+            enablePinging: false,
+            enableEditing: false,
+            enableUpvoting: false,
+            enableDeleting: false,
+            enableDeletingCommentWithReplies: false,
+            newestText: 'Recientes',
+            oldestText: 'Antiguos',
+            popularText: "",
+            highlightColor: "#2793e6",
+            replyText: "Responder",
+            youText: "Tú",
+            noCommentsText: "No hay Comentarios",
+            viewAllRepliesText: "Ver todas las  __replyCount__ respuestas",
+            hideRepliesText: "Ocultar respuestas",
+            textareaPlaceholderText: "Agregar un comentario",
+            readOnly: obtenerPermisos(),
+            getComments: function (success, error) {
+                var tfg = "<?php echo $codigo ?>";
+                var fase = 3; 
+                var etapa = 3;
+                var usuario = "<?php echo $usuarioPermisos->getId() ?>";
+                var nomUsuario = "<?php echo $usuarioSesion->getNombre() . ' ' . $usuarioSesion->getApellido1(); ?>";
+                console.log(tfg + " "+ usuario + " " + nomUsuario);
+                var commentsArray =
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioObtener.php',
+                        //dataType: 'json',
+                        data: { nomUsuario: nomUsuario,usuario: usuario,tfg: tfg, fase: fase, etapa: etapa },
+                        success: function (response) {
+                            console.log(response);
+                            success(JSON.parse(response));
+                        }
+                    });
+            },
+            postComment: function (data, success, error) {
+                    var tfg = "<?php echo $codigo ?>";
+                    var id = "<?php echo $usuarioPermisos->getId()  ?>"
+                    var fase = 3; 
+                    var etapa = 3;
+                    $.ajax({
+                        type: 'post',
+                        url: 'funcionalidad/ComentarioGuardar.php',
+
+                        data: { usuario: id, tfg: tfg, json: data, fase: fase, etapa: etapa},
                         success: function (response) {
                             //var content= JSON.parse(response);
                             console.log(response);
