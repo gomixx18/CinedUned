@@ -18,27 +18,26 @@
 
     <body class="gray-bg">
         <script type="text/javascript">
-            $(function () {
-                
-                $("form#passwordForm").submit(function () {
+            $(function () {               
+                $("#passwordForm").submit(function () {
                     var cedula = $("#cedula").val();
                     var err = $("#result");
-                   
+                    console.log("entro");
                     err = err.hide();
                     $('*').css('cursor','progress');
                     $.ajax({
                         url: "funcionalidad/recuperarContrasena.php",
                         type: "POST",
                         data: {cedula: cedula},
-                        dataType: "json",
                         success: function (data) {
-                           
-                          
-                            if (data.status === 'success') {      
+                            
+                            json = JSON.parse(data);  
+                            console.log(json.status);
+                            if (json.status === 'success') {  
                                 err = err.text("Su contraseña a sido restablecida. ¡verifique su correo electronico!").css('color' , 'green');
-                            } else if (data.status === 'error') {        
+                            } else if (json.status === 'error') {        
                                err = err.text("El usuario no existe, vuelva a ingresar la cédula.").css('color', 'red');
-                            } else if (data.status === 'db_conn_error'){
+                            } else if (json.status === 'db_conn_error'){
                                 err = err.text("No se puede establecer conexión con la base de datos. Comuníquese con el encargado.");
                             }
                            err.fadeIn();
@@ -79,11 +78,10 @@
                                         <input type="text" name="cedula" id="cedula" class="form-control" placeholder= "Cédula de Identidad" required="">
                                     </div>
 
-                                    <button id="recuperarContrasena" type="submit" name="recuperarContrasena" class="btn btn-primary block full-width m-b">Enviar nueva contraseña</button>
+                                    <input id="recuperarContrasena" type="submit" name="recuperarContrasena" class="btn btn-primary block full-width m-b"/>
 
                                 </form>
-                                <p id="result">
-                                   
+                                <p id="result"> 
                                 </p>
                             </div>
                         </div>

@@ -20,12 +20,10 @@ if ($connection) {
     if ($sentencia->num_rows == 0) {
         $response_array['status'] = 'error';
     } else {
-        $s2 = "SELECT * FROM usuarios where id= " . $id;
+        $s2 = "SELECT * FROM usuarios where id= ". $id;
         $result2 = mysqli_query($connection, $s2);
         $usuario = mysqli_fetch_assoc($result2);
-
         if ($usuario['encargadotfg']) {
-            
             $sentenciaSQLespecifica = "SELECT nombre, correo FROM tfgencargados where id= " . $id;
             $resultadoEspecifico = mysqli_query($connection, $sentenciaSQLespecifica);
             $row = mysqli_fetch_assoc($resultadoEspecifico);
@@ -33,10 +31,8 @@ if ($connection) {
             $nombre = $row['nombre'];
             $sentencia->close();
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo,  $connection);
-            
-            
+            echo json_encode($response_array);
         }
         if ($usuario['asesortfg']) {
             
@@ -47,8 +43,8 @@ if ($connection) {
             $nombre = $row['nombre'];
             $sentencia->close();
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
             
             
         }
@@ -60,8 +56,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
            
            
         }
@@ -73,8 +69,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];  
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
            
          
            
@@ -88,8 +84,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
             
             
         }
@@ -101,8 +97,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
             
            
         }
@@ -113,8 +109,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $connection );
+            echo json_encode($response_array);
             
             
         }
@@ -125,8 +121,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
             
             
         }
@@ -137,8 +133,8 @@ if ($connection) {
             $correo = $row['correo'];
             $nombre = $row['nombre'];
             $response_array['status'] = 'success';
-            echo json_encode($response_array);
             sendPassReset($id, $correo, $nombre,  $connection);
+            echo json_encode($response_array);
             
         }
 
@@ -152,5 +148,5 @@ if ($connection) {
     $response_array['status'] = 'db_conn_error';
     echo json_encode($response_array);
 }
-?>
+
 

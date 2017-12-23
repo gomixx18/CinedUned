@@ -11,12 +11,12 @@ session_start();
 $usuario = $_POST["usuario"];
 $json = $_POST["json"];
 $tfg = $_POST['tfg'];
-//$code=  json_encode($json);
-$fase = 1;
-$etapa = 1;
+
+$fase = $_POST['fase'];
+$etapa = $_POST['etapa'];
 
 $decode= json_decode(json_encode($json), true);
-//echo $decode[0]['administrador'];
+
 echo json_encode($json);
 
 
@@ -38,7 +38,6 @@ else{
 if($connection1){
     
     mysqli_query($connection1, $ingresar);
-    echo "Guardado";
 }
  else {
     echo "Error de conexión";
