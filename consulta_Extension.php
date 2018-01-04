@@ -427,113 +427,11 @@
                                                                             <div class="row">
                                                                                 <div class="col-lg-12">
                                                                                     <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title">
-                                                                                            <h5>Investigadores</h5>
-
-                                                                                            <?php if (getInvestigador($usuarioSesion->getId())) { ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit1('CI11')" type="button">Edit</button>
-                                                                                                <button id="BI11" etapa="1" comentario="CI11" class="btn btn-primary  btn-xs permiso" onclick="save1('CI11')" type="button">Save</button>
-                                                                                            <?php } ?>
-                                                                                            <a class="collapse-link">
-                                                                                                <div class="ibox-tools">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-                                                                                            <div id="CI11" class="click1edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioInvestigador($codigo, 1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title">
-                                                                                            <h5>Miembro de Comiex</h5>
-
-                                                                                            <?php if (($usuarioPermisos->getMiembrocomiex())) { ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit4('CM11')" type="button">Edit</button>
-                                                                                                <button id="BM11" etapa="1" comentario="CM11" class="btn btn-primary  btn-xs permiso" onclick="save4('CM11')" type="button">Save</button>
-                                                                                            <?php } ?>
-                                                                                            <a class="collapse-link">
-                                                                                                <div class="ibox-tools">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-                                                                                            <div id="CM11" class="click4edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioMiembroComiex($codigo, 1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-lg-12">
-                                                                                    <div class="ibox float-e-margins">
-                                                                                        <div class="ibox-title">
-                                                                                            <h5>Evaluador 1</h5>
-                                                                                            <?php if ($usuarioPermisos->getId() == $evaluador1) { ?>
-                                                                                                <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit2('CE11')" type="button">Edit</button>
-                                                                                                <button id="BE11" etapa="1" comentario="CE11" class="btn btn-primary  btn-xs permiso" onclick="save2('CE11')" type="button">Save</button>
-                                                                                            <?php } ?>
-                                                                                            <a class="collapse-link">
-                                                                                                <div class="ibox-tools">
-                                                                                                    <i class="fa fa-chevron-up"></i>
-                                                                                                </div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <div class="ibox-content no-padding">
-
-                                                                                            <div id="CE11" class="click2edit wrapper p-md">
-                                                                                                <?php
-                                                                                                comentarioEvaluador($codigo, 1, $evaluador1, $connection);
-                                                                                                ?>
-                                                                                            </div>
-
+                                                                                        <div class="ibox-title panel panel-success">                                        
+                                                                                            <div id="comments-container-etapa1"></div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-
-                                                                                <?php if ($GLOBALS['cantEvaluador'] == 2) { ?>
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="ibox float-e-margins">
-                                                                                            <div class="ibox-title">
-                                                                                                <h5>Evaluador 2</h5>
-                                                                                                <?php
-                                                                                                if ($usuarioPermisos->getId() == $evaluador2) {
-                                                                                                    ?>
-                                                                                                    <button class="btn btn-primary btn-xs m-l-sm permiso" onclick="edit3('CE21')" type="button">Edit</button>
-                                                                                                    <button id="BE21" etapa="1" comentario="CE21" class="btn btn-primary  btn-xs permiso" onclick="save3('CE21')" type="button">Save</button>
-                                                                                                    <?php
-                                                                                                }
-                                                                                                ?>
-                                                                                                <a class="collapse-link">
-                                                                                                    <div class="ibox-tools">
-                                                                                                        <i class="fa fa-chevron-up"></i>
-                                                                                                    </div>
-                                                                                                </a>
-                                                                                            </div>
-                                                                                            <div class="ibox-content no-padding">
-
-                                                                                                <div id="CE21" class="click3edit wrapper p-md">
-                                                                                                    <?php
-                                                                                                    comentarioEvaluador($codigo, 1, $evaluador2, $connection);
-                                                                                                    ?>
-                                                                                                </div>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                <?php } ?>
                                                                             </div>
                                                                         </div>
                                                                     </div>
