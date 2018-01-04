@@ -3,19 +3,19 @@
 session_start();
 $usuarioNombre = $_POST["nomUsuario"];
 $usuario = $_POST["usuario"];
-$extension = $_POST["extension"];
+$proyecto = $_POST["proyecto"];
 $fase = $_POST["fase"];
 $etapa = $_POST["etapa"];
 $connection1 = mysqli_connect("proyectos.uned.ac.cr", "usr_cined", "cined123", "uned_db");
 $asesor1;
 $asesor2;
 
-//ObtenerAsesores($tfg);
+ObtenerEvaluadores($proyecto);
 
 if($connection1){
     
-    $senten="SELECT id_coment,contenido,id_extension,usuario,padre,fecha FROM uned_db.comentarios_extension WHERE id_extension= '" . $extension . "' and etapa =". $etapa .";";
-    $result1 = mysqli_query($connection1,$senten);//"SELECT id_coment,contenido FROM uned_db.comentarios_tfg WHERE id_tfg=");
+    $senten="SELECT id_coment,contenido,id_proyecto,usuario,padre,fecha FROM uned_db.comentarios_ext_inv WHERE id_proyecto= '" . $extension . "' and etapa =". $etapa .";";
+    $result1 = mysqli_query($connection1,$senten);
     if(!$result1){
         echo 'ready';
     }
@@ -25,12 +25,12 @@ if($connection1){
                              'profile_picture_url' => 'img/user-icon.png',
                              'id'=>$coment["id_coment"],'parent'=>$coment['padre'],
                              'created'=>$coment["fecha"],'content'=>$coment['contenido'],
-                             'fullname'=>obtenerUsuario($coment['usuario'], $tfg));
+                             'fullname'=>obtenerUsuario($coment['usuario'], $proyecto));
     }
     echo json_encode($array);
        
     mysqli_free_result($result1);
-    //Cerras coneccion
+    
     mysqli_close($connection1);
 }
 else{
@@ -38,15 +38,15 @@ else{
 }
 
 
-function obtenerUsuario($id_usuario,$extension){
+function obtenerUsuario($id_usuario,$proyecto){
     global $connection1;
     global $usuario;
     global $usuarioNombre;
-    global $asesor1;
-    global $asesor2;
+    global $Evaluador1;
+    global $Evaluador2;
     $miembroComision = false ;
 
-    $senten="SELECT * FROM tfgmiembroscomision comision
+    $senten="SELECT * FROM iemiembroscomiex comision
     where comision.id = '".$usuario."'";
     $result1 = mysqli_query($connection1,$senten);
     $rows = mysqli_fetch_array($result1);
@@ -57,60 +57,60 @@ function obtenerUsuario($id_usuario,$extension){
     if($usuario == $id_usuario){
             return "Tú";
     }
-    if($asesor1[0] == $id_usuario){
+    if($Evaluador1[0] == $id_usuario){
         if($miembroComision || $usuario == 'admin'){
-            return "Asesor 1: ".$asesor1[1]." " .$asesor1[2];
+            return "Evaluador 1: ".$Evaluador1[1]." " .$Evaluador1[2];
         }else{
-            return 'asesor 1';
+            return 'Evaluador 1';
         }
     }
     
-    if($asesor2[0] == $id_usuario){
+    if($Evaluador2[0] == $id_usuario){
         if($miembroComision || $usuario == 'admin'){
-            return "Asesor 2: ". $asesor2[1]." " .$asesor2[2] ;
+            return "Evaluador 2: ". $Evaluador2[1]." " .$Evaluador2[2] ;
         }else{
-            return 'Asesor 2';            
+            return 'Evaluador 2';            
         }
     }
     if($id_usuario == 'admin'){
         return 'Administrador';
     }
-
-    $senten="SELECT concat(directores.nombre,' ',directores.apellido1,' ',directores.apellido2) FROM tfgdirectores directores, tfg proyecto 
-    where directores.id = proyecto.directortfg and proyecto.directortfg = '".$id_usuario."' and proyecto.codigo = '".$tfg."'";
+    
+    $senten="select concat(inv.nombre,' ',inv.apellido1) as Nombre from ieinvestigan i join ieinvestigadores inv on i.investigador=inv.id 
+    where i.proyecto='".$proyecto."' and inv.id='".$id_usuario."'";
     $result1 = mysqli_query($connection1,$senten);
     $rows = mysqli_fetch_array($result1);
     if(count($rows)  != 0){
-        return "Director TFG: ".$rows[0];
-        //return "Director TFG";
+        return "Investigador: ".$rows[0];
+        
     }
 
-    $senten="SELECT * FROM tfgmiembroscomision comision
+    $senten="SELECT * FROM iemiembroscomiex comision
     where comision.id = '".$id_usuario."'";
     $result1 = mysqli_query($connection1,$senten);
     $rows = mysqli_fetch_array($result1);
     if(count($rows) != 0){
-        return "Miembro comisión TFG";
+        return "Miembro comisión";
     }
 }
 
 
-function ObtenerAsesores($codigoTfg){
+function ObtenerEvaluadores($proyecto){
     global $connection1;
-    global $asesor1;
-    global $asesor2;
+    global $Evaluador1;
+    global $Evaluador2;
     
-    $senten="select  tfgasesores.* from tfgasesoran, tfgasesores where tfgasesoran.tfg  = '".$codigoTfg."' and tfgasesores.id = tfgasesoran.asesor order by asesor asc;";
+    $senten="select  ieevaluadores.* from ieevaluan, ieevaluadores where ieevaluan.proyecto  = '".$proyecto."' and ieevaluadores.id = ieevaluan.evaluador order by evaluador asc;";
     $result1 = mysqli_query($connection1,$senten);
     if($result1){
         if(mysqli_num_rows($result1) == 1){ 
             $row = mysqli_fetch_row($result1);
-            $asesor1 = array($row[0],$row[1],$row[2]);
+            $Evaluador1 = array($row[0],$row[1],$row[2]);
         }else {
             $row = mysqli_fetch_row($result1);
-            $asesor1 =array($row[0],$row[1],$row[2]);
+            $Evaluador1 =array($row[0],$row[1],$row[2]);
             $row = mysqli_fetch_row($result1);
-            $asesor2 = array($row[0],$row[1],$row[2]);
+            $Evaluador2 = array($row[0],$row[1],$row[2]);
         }
     }
     
