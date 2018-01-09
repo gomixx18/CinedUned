@@ -4,7 +4,7 @@ session_start();
 $usuarioNombre = $_POST["nomUsuario"];
 $usuario = $_POST["usuario"];
 $proyecto = $_POST["proyecto"];
-$fase = $_POST["fase"];
+
 $etapa = $_POST["etapa"];
 $connection1 = mysqli_connect("proyectos.uned.ac.cr", "usr_cined", "cined123", "uned_db");
 $asesor1;
@@ -14,7 +14,7 @@ ObtenerEvaluadores($proyecto);
 
 if($connection1){
     
-    $senten="SELECT id_coment,contenido,id_proyecto,usuario,padre,fecha FROM uned_db.comentarios_ext_inv WHERE id_proyecto= '" . $extension . "' and etapa =". $etapa .";";
+    $senten="SELECT id_coment,contenido,id_proyecto,usuario,padre,fecha FROM uned_db.comentarios_ext_inv WHERE id_proyecto= '" . $proyecto . "' and etapa =". $etapa .";";
     $result1 = mysqli_query($connection1,$senten);
     if(!$result1){
         echo 'ready';
