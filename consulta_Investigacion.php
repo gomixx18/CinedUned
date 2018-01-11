@@ -1931,7 +1931,7 @@
                     var etapa = 1;
                     $.ajax({
                         type: 'post',
-                        url: 'funcionalidad/ComentarioGuardar.php',//guardarComentario
+                        url: 'funcionalidad/GuardarComentarioProyecto.php',//guardarComentario
 
                         data: { usuario: id, proyecto: proyecto, json: data, etapa:etapa },
                         success: function (response) {
@@ -1993,7 +1993,7 @@
                     var etapa = 2;
                     $.ajax({
                         type: 'post',
-                        url: 'funcionalidad/ComentarioGuardar.php',//guardarComentario
+                        url: 'funcionalidad/GuardarComentarioProyecto.php',//guardarComentario
 
                         data: { usuario: id, proyecto: proyecto, json: data, etapa:etapa },
                         success: function (response) {
@@ -2055,7 +2055,7 @@
                     var etapa = 3;
                     $.ajax({
                         type: 'post',
-                        url: 'funcionalidad/ComentarioGuardar.php',//guardarComentario
+                        url: 'funcionalidad/GuardarComentarioProyecto.php',//guardarComentario
 
                         data: { usuario: id, proyecto: proyecto, json: data, etapa:etapa },
                         success: function (response) {
