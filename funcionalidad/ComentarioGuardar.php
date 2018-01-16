@@ -38,6 +38,28 @@ else{
 if($connection1){
     
     mysqli_query($connection1, $ingresar);
+    $senten="SELECT t.titulo,
+    e.correo
+
+from tfg t join tfgencargados e
+    on t.encargadotfg=e.id
+where t.codigo='" . $tfg . "';";
+    $result1 = mysqli_query($connection1,$senten);
+    if(!$result1){
+        echo 'ready';
+    }
+    else{
+        $array = array();
+        $subject="Agregaron un comentario a un proyecto";
+        $wordwrap="normal";
+        while ($coment = mysqli_fetch_assoc($result1)) {
+            $body="El usuario '" . $usuario ."' ha agregado un comentario al proyecto '" . $coment["titulo"] ."'";
+            sendMail($coment["correo"], $subject, $body, $wordwrap);
+        }
+        mysqli_free_result($result1);
+        
+        mysqli_close($connection1);      
+    }
 }
  else {
     echo "Error de conexión";
