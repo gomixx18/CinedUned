@@ -295,7 +295,7 @@
                 Eie3 = JSON.stringify(estadosE3);
                 $.get("funcionalidad/reportesIe.php", {Eie: Eie, Eie1: Eie1, Eie2: Eie2, Eie3: Eie3, catedra: cat, linea: lin, carrera: car, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica, extension:extension}, function (data) {
                     $('#consulta').html(data);
-                    window.open('funcionalidad/pdfParserExtension.php', '_blank');
+                    window.open('reporteExcelExtension.php', '_blank');
                 }).fail(function () {
 
                 });

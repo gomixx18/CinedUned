@@ -299,7 +299,7 @@
 
                 $.get("funcionalidad/reportesTFG.php", {Etfg: Etfg, Etfg1: Etfg1, Etfg2: Etfg2, Etfg3: Etfg3, carrera: car, linea: lin, modalidad: mod, fechainicio: inifecha, fechafin: finfecha, estadistica: estadistica}, function (data) {
                     $("#consulta").html(data);
-                    window.open('funcionalidad/pdfParserTFG.php', '_blank');
+                    window.open('reporteExcel.php', '_blank');
                 }).fail(function () {
 
                 });
